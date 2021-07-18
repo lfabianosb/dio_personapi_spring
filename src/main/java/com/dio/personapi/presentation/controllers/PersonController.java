@@ -3,6 +3,8 @@ package com.dio.personapi.presentation.controllers;
 import com.dio.personapi.application.services.GetPersonByIdService;
 import com.dio.personapi.application.services.SavePersonService;
 import com.dio.personapi.domain.entities.Person;
+import com.dio.personapi.presentation.mapper.PersonViewMapper;
+import com.dio.personapi.presentation.viewmodel.PersonViewModel;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class PersonController {
   private final GetPersonByIdService getPersonByIdService;
   private final SavePersonService savePersonService;
+  private final PersonViewMapper personViewMapper;
 
   @GetMapping("/hello")
   public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -30,13 +33,15 @@ public class PersonController {
 
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Person findById(@PathVariable Long id) {
-    return getPersonByIdService.execute(new GetPersonByIdService.Param(id));
+  public PersonViewModel findById(@PathVariable Long id) {
+    Person person = getPersonByIdService.execute(new GetPersonByIdService.Param(id));
+    return personViewMapper.toViewModel(person);
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Person create(@RequestBody Person personDTO) {
-      return savePersonService.execute(new SavePersonService.Param(personDTO));
+  public PersonViewModel create(@RequestBody Person personDTO) {
+    Person personCreated = savePersonService.execute(new SavePersonService.Param(personDTO));
+    return personViewMapper.toViewModel(personCreated);
   }
 }
