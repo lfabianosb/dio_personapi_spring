@@ -21,38 +21,14 @@ public class PersonRepositoryImpl implements PersonRepository {
   @Override
   public Person findById(Long id) throws PersonNotFoundException {
     PersonDbModel personDbModel = personDataSource.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
-    // Person person = Person.builder()
-    //                 .id(personDbModel.getId())
-    //                 .firstName(personDbModel.getFirstName())
-    //                 .lastName(personDbModel.getLastName())
-    //                 .cpf(personDbModel.getCpf())
-    //                 .birthDate(personDbModel.getBirthDate())
-    //                 .phones(new ArrayList<>())
-    //                 .build();
-    // return person;
     return personDbMapper.toEntity(personDbModel);
   }
 
   @Override
   public Person save(Person person) {
     PersonDbModel personDbModel = personDbMapper.toDbModel(person);
-    // PersonDbModel personDbModel = PersonDbModel.builder()
-    //                               .firstName(person.getFirstName())
-    //                               .lastName(person.getLastName())
-    //                               .cpf(person.getCpf())
-    //                               .birthDate(person.getBirthDate())
-    //                               .phones(new ArrayList<>())
-    //                               .build();
     PersonDbModel savedPersonDbModel = personDataSource.save(personDbModel);
     Person savedPerson = personDbMapper.toEntity(savedPersonDbModel);
-    // Person savedPerson = Person.builder()
-    //                       .id(savedPersonDbModel.getId())
-    //                       .firstName(savedPersonDbModel.getFirstName())
-    //                       .lastName(savedPersonDbModel.getLastName())
-    //                       .cpf(savedPersonDbModel.getCpf())
-    //                       .birthDate(savedPersonDbModel.getBirthDate())
-    //                       .phones(new ArrayList<>())
-    //                       .build();
     return savedPerson;
   }
 }
