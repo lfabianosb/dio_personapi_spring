@@ -12,5 +12,6 @@ public interface PersonViewMapper {
   @Mapping(target = "birthDate", source = "birthDate", dateFormat = "dd-MM-yyyy")
   Person toEntity(PersonViewModel model);
 
+  @Mapping(target = "birthDate", source = "birthDate", dateFormat = "dd/MM/yyyy")
   PersonViewModel toViewModel(Person entity);
 }
