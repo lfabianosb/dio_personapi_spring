@@ -13,4 +13,8 @@ public class PhoneViewModel {
   private Long id;
   private String type;
   private String number;
+
+  public String getType() {
+    return this.type != null ? this.type.toLowerCase() : this.type;
+  }
 }
