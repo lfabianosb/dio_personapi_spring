@@ -18,11 +18,4 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
   public void handleNotFound(HttpServletResponse response) throws IOException {
     response.sendError(HttpStatus.NOT_FOUND.value());
   }
-
-  // @ExceptionHandler(PersonNotFoundException.class)
-  // protected ResponseEntity<Object> handleNotFound(PersonNotFoundException ex) {
-  //   ApiError apiError = new ApiError(NOT_FOUND);
-  //   apiError.setMessage(ex.getMessage());
-  //   return buildResponseEntity();
-  // }
 }
