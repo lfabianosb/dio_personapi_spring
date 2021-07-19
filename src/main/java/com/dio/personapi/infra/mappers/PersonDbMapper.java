@@ -1,4 +1,4 @@
-package com.dio.personapi.infra.mapper;
+package com.dio.personapi.infra.mappers;
 
 import com.dio.personapi.domain.entities.Person;
 import com.dio.personapi.infra.models.PersonDbModel;

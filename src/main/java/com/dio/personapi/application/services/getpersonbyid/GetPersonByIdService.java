@@ -1,7 +1,8 @@
-package com.dio.personapi.application.services;
+package com.dio.personapi.application.services.getpersonbyid;
 
 import com.dio.personapi.application.exceptions.PersonNotFoundException;
 import com.dio.personapi.application.repositories.PersonRepository;
+import com.dio.personapi.application.services.getpersonbyid.input.GetPersonByIdInput;
 import com.dio.personapi.core.usecase.UseCase;
 import com.dio.personapi.domain.entities.Person;
 
@@ -11,23 +12,11 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class GetPersonByIdService implements UseCase<GetPersonByIdService.Param, Person> {
+public class GetPersonByIdService implements UseCase<GetPersonByIdInput, Person> {
   private final PersonRepository personRepository;
 
   @Override
-  public Person execute(Param input) throws PersonNotFoundException {
+  public Person execute(GetPersonByIdInput input) throws PersonNotFoundException {
     return personRepository.findById(input.getId());
-  }
-  
-  public static class Param {
-    private Long id;
-
-    public Long getId() {
-      return this.id;
-    }
-
-    public Param(Long id) {
-      this.id = id;
-    }
   }
 }
