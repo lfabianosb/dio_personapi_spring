@@ -1,7 +1,13 @@
 package com.dio.personapi.presentation.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.dio.personapi.application.services.deletepersonbyid.DeletePersonByIdService;
+import com.dio.personapi.application.services.deletepersonbyid.input.DeletePersonByIdInput;
 import com.dio.personapi.application.services.getpersonbyid.GetPersonByIdService;
 import com.dio.personapi.application.services.getpersonbyid.input.GetPersonByIdInput;
+import com.dio.personapi.application.services.listallperson.ListAllPersonService;
 import com.dio.personapi.application.services.saveperson.SavePersonService;
 import com.dio.personapi.application.services.saveperson.input.SavePersonInput;
 import com.dio.personapi.application.services.updateperson.UpdatePersonService;
@@ -10,6 +16,7 @@ import com.dio.personapi.domain.entities.Person;
 import com.dio.personapi.presentation.mappers.PersonViewMapper;
 import com.dio.personapi.presentation.viewmodel.PersonViewModel;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +34,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonController {
   private final GetPersonByIdService getPersonByIdService;
+  private final ListAllPersonService listAllPersonService;
   private final SavePersonService savePersonService;
   private final UpdatePersonService updatePersonService;
+  private final DeletePersonByIdService deletePersonService;
   private final PersonViewMapper personViewMapper;
 
   @GetMapping("/{id}")
@@ -36,6 +45,14 @@ public class PersonController {
   public PersonViewModel findById(@PathVariable Long id) {
     Person person = getPersonByIdService.execute(new GetPersonByIdInput(id));
     return personViewMapper.toViewModel(person);
+  }
+
+  @GetMapping
+  public List<PersonViewModel> listAll() {
+    return listAllPersonService.execute(null)
+                .stream()
+                .map(personViewMapper::toViewModel)
+                .collect(Collectors.toList());
   }
 
   @PostMapping
@@ -51,5 +68,11 @@ public class PersonController {
     personInput.setId(id);
     Person updatedPerson = updatePersonService.execute(personInput);
     return personViewMapper.toViewModel(updatedPerson);
+  }
+
+  @DeleteMapping("/{id}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void delete(@PathVariable Long id) {
+    deletePersonService.execute(new DeletePersonByIdInput(id));
   }
 }
