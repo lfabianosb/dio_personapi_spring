@@ -49,7 +49,7 @@ public class PersonController {
 
   @GetMapping
   public List<PersonViewModel> listAll() {
-    return listAllPersonService.execute(null)
+    return listAllPersonService.execute()
                 .stream()
                 .map(personViewMapper::toViewModel)
                 .collect(Collectors.toList());
