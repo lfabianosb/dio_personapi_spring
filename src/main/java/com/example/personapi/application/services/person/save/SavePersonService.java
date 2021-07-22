@@ -22,7 +22,6 @@ public class SavePersonService implements UseCase<SavePersonRequest, Presenter<P
       throw new CpfAlreadyExistsException();
     }
     Person person = repository.create(request.toDomain());
-    System.out.println(person);
     presenter.setModel(person);
   }
 }
