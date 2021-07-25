@@ -1,6 +1,6 @@
-package com.example.personapi.presentation.controllers.person.update;
+package com.example.personapi.presentation.controllers.person.update.in;
 
-import com.example.personapi.application.services.person.update.UpdatePhoneRequest;
+import com.example.personapi.application.services.person.update.models.in.UpdatePhoneRequest;
 
 import lombok.Data;
 

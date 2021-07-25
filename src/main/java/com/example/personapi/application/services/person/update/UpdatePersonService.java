@@ -1,27 +1,29 @@
 package com.example.personapi.application.services.person.update;
 
-import com.example.personapi.application.contracts.presenter.Presenter;
-import com.example.personapi.application.contracts.usecase.UseCase;
 import com.example.personapi.application.exceptions.PersonNotFoundException;
 import com.example.personapi.application.repositories.PersonRepository;
+import com.example.personapi.application.services.person.update.contracts.UpdatePersonUseCase;
+import com.example.personapi.application.services.person.update.models.in.UpdatePersonRequest;
+import com.example.personapi.application.services.person.update.models.out.UpdatePersonResponse;
 import com.example.personapi.domain.entities.Person;
 
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
-public class UpdatePersonService implements UseCase<UpdatePersonRequest, Presenter<Person, ?>> {
+public class UpdatePersonService implements UpdatePersonUseCase {
 
   private final PersonRepository repository;
 
+  public UpdatePersonService(PersonRepository repository) {
+    this.repository = repository;
+  }
+
   @Override
-  public void execute(UpdatePersonRequest request, Presenter<Person, ?> presenter) {
+  public UpdatePersonResponse execute(UpdatePersonRequest request) {
     if (!repository.findById(request.getId()).isPresent()) {
       throw new PersonNotFoundException();
     }
     Person person = repository.update(request.toDomain());
-    presenter.setModel(person);
+    return UpdatePersonResponse.fromDomain(person);
   }
 }

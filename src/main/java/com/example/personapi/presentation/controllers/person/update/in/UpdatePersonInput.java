@@ -1,10 +1,10 @@
-package com.example.personapi.presentation.controllers.person.update;
+package com.example.personapi.presentation.controllers.person.update.in;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.example.personapi.application.services.person.update.UpdatePersonRequest;
+import com.example.personapi.application.services.person.update.models.in.UpdatePersonRequest;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.example.personapi.application.services.person.update;
+package com.example.personapi.application.services.person.create.models.in;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,18 +12,16 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UpdatePersonRequest {
-  private final Long id;
+public class SavePersonRequest {
   private final String firstName;
   private final String lastName;
   private final String cpf;
   private final String birthDate;
   @Builder.Default
-  private final List<UpdatePhoneRequest> phones = new ArrayList<>();
+  private final List<SavePhoneRequest> phones = new ArrayList<>();
 
-  Person toDomain() {
+  public Person toDomain() {
     return Person.builder()
-            .id(this.id)
             .firstName(this.firstName)
             .lastName(this.lastName)
             .cpf(this.cpf)

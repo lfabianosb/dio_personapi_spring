@@ -1,6 +1,6 @@
-package com.example.personapi.presentation.controllers.person.save;
+package com.example.personapi.presentation.controllers.person.create.in;
 
-import com.example.personapi.application.services.person.save.SavePhoneRequest;
+import com.example.personapi.application.services.person.create.models.in.SavePhoneRequest;
 
 import lombok.Data;
 

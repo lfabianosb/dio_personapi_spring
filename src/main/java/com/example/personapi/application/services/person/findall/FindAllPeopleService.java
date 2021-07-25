@@ -1,24 +1,26 @@
 package com.example.personapi.application.services.person.findall;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import com.example.personapi.application.contracts.presenter.Presenter;
-import com.example.personapi.application.contracts.usecase.UseCaseNoRequest;
 import com.example.personapi.application.repositories.PersonRepository;
+import com.example.personapi.application.services.person.findall.contracts.FindAllPeopleUseCase;
+import com.example.personapi.application.services.person.findall.models.out.FindAllPeolpleRespnose;
 import com.example.personapi.domain.entities.Person;
 
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
-public class FindAllPeopleService implements UseCaseNoRequest<Presenter<List<Person>, ?>> {
+public class FindAllPeopleService implements FindAllPeopleUseCase {
   private final PersonRepository repository;
 
+  public FindAllPeopleService(PersonRepository repository) {
+    this.repository = repository;
+  }
+
   @Override
-  public void execute(Presenter<List<Person>, ?> presenter) {
+  public List<FindAllPeolpleRespnose> execute() {
     List<Person> people = repository.findAll();
-    presenter.setModel(people);
+    return people.stream().map(person -> FindAllPeolpleRespnose.fromDomain(person)).collect(Collectors.toList());
   }
 }

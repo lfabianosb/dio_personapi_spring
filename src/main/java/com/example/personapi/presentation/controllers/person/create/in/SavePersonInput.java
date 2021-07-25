@@ -1,10 +1,10 @@
-package com.example.personapi.presentation.controllers.person.save;
+package com.example.personapi.presentation.controllers.person.create.in;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.example.personapi.application.services.person.save.SavePersonRequest;
+import com.example.personapi.application.services.person.create.models.in.SavePersonRequest;
 
 import lombok.Data;
 
