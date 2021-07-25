@@ -3,7 +3,7 @@ package com.example.personapi.presentation.controllers.person.findall;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.example.personapi.application.services.person.findall.FindAllPeopleService;
+import com.example.personapi.application.services.person.findall.contracts.FindAllPeopleUseCase;
 import com.example.personapi.application.services.person.findall.models.out.FindAllPeolpleRespnose;
 import com.example.personapi.presentation.controllers.person.PersonControllerBase;
 import com.example.personapi.presentation.models.PersonViewModel;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class FindAllController extends PersonControllerBase {
-  private final FindAllPeopleService service;
+  private final FindAllPeopleUseCase useCase;
 
-  public FindAllController(FindAllPeopleService service) {
-    this.service = service;
+  public FindAllController(FindAllPeopleUseCase useCase) {
+    this.useCase = useCase;
   }
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<PersonViewModel> findAll() {
-    List<FindAllPeolpleRespnose> useCaseResponse = service.execute();
+    List<FindAllPeolpleRespnose> useCaseResponse = useCase.execute();
     return useCaseResponse.stream().map(person -> PersonViewModel.fromDomain(person)).collect(Collectors.toList());
   }
 

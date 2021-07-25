@@ -1,6 +1,6 @@
 package com.example.personapi.presentation.controllers.person.getbyid;
 
-import com.example.personapi.application.services.person.getbyid.GetPersonByIdService;
+import com.example.personapi.application.services.person.getbyid.contracts.GetPersonByIdUseCase;
 import com.example.personapi.application.services.person.getbyid.models.out.GetByIdPersonResponse;
 import com.example.personapi.presentation.controllers.person.PersonControllerBase;
 import com.example.personapi.presentation.models.PersonViewModel;
@@ -13,16 +13,16 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 public class GetByIdController extends PersonControllerBase {
-  private final GetPersonByIdService service;
+  private final GetPersonByIdUseCase useCase;
 
-  public GetByIdController(GetPersonByIdService service) {
-    this.service = service;
+  public GetByIdController(GetPersonByIdUseCase useCase) {
+    this.useCase = useCase;
   }
 
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public PersonViewModel findById(@PathVariable Long id) {
-    GetByIdPersonResponse useCaseResponse =  service.execute(id);
+    GetByIdPersonResponse useCaseResponse =  useCase.execute(id);
     return PersonViewModel.fromDomain(useCaseResponse);
   }
 }

@@ -1,6 +1,6 @@
 package com.example.personapi.presentation.controllers.person.update;
 
-import com.example.personapi.application.services.person.update.UpdatePersonService;
+import com.example.personapi.application.services.person.update.contracts.UpdatePersonUseCase;
 import com.example.personapi.application.services.person.update.models.out.UpdatePersonResponse;
 import com.example.personapi.presentation.controllers.person.PersonControllerBase;
 import com.example.personapi.presentation.controllers.person.update.in.UpdatePersonInput;
@@ -15,16 +15,16 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 public class UpdatePersonController extends PersonControllerBase {
-  private final UpdatePersonService service;
+  private final UpdatePersonUseCase useCase;
 
-  public UpdatePersonController(UpdatePersonService service) {
-    this.service = service;
+  public UpdatePersonController(UpdatePersonUseCase useCase) {
+    this.useCase = useCase;
   }
 
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public PersonViewModel update(@PathVariable Long id, @RequestBody UpdatePersonInput personInput) {
-    UpdatePersonResponse useCaseResponse = service.execute(personInput.toRequestModel());
+    UpdatePersonResponse useCaseResponse = useCase.execute(personInput.toRequestModel());
     return PersonViewModel.fromDomain(useCaseResponse);
   }
 }

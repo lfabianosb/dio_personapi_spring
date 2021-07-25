@@ -2,14 +2,14 @@ package com.example.personapi.application.services.person.getbyid;
 
 import com.example.personapi.application.exceptions.PersonNotFoundException;
 import com.example.personapi.application.repositories.PersonRepository;
-import com.example.personapi.application.services.person.getbyid.contracts.GetByIdUseCase;
+import com.example.personapi.application.services.person.getbyid.contracts.GetPersonByIdUseCase;
 import com.example.personapi.application.services.person.getbyid.models.out.GetByIdPersonResponse;
 import com.example.personapi.domain.entities.Person;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public class GetPersonByIdService implements GetByIdUseCase {
+public class GetPersonByIdService implements GetPersonByIdUseCase {
   private final PersonRepository repository;
 
   public GetPersonByIdService(PersonRepository repository) {
