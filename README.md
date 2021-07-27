@@ -1,30 +1,30 @@
-## Sistema de gerenciamento de pessoas em API REST com Spring
+## People management system with API REST using Spring
 
-Desenvolvimento de uma API REST para o gerenciamento de pessoas usando Spring. Usei uma arquitetura em camadas, baseada na [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
+API REST for people management system using Spring Framework. Design based on [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
-O arquitetura do sistema apresenta as seguintes camadas:
+The system was divided into following layers:
 
 ### Domain
 
-- entities: objetos do domínio da aplicação
-- exceptions: erro relacionados somente ao domínio
+- entities: domain objects
+- exceptions: errors related to domain
 
 
 ### Application
 
-- exceptions: erros relacionados à aplicação
-- repositories: interface para o repositório de dados
-- services: implementação dos casos de uso. Cada caso de uso representa uma regra de negócio do sistema
+- exceptions: errors related to application
+- repositories: interface to repository (implemented by infra layer)
+- services: use case implementation. The use cases represent business rules
 
 
 ### Infra
 
-- datasource: acesso aos dados através do JpaRepository
-- models: modelo de dados relacionado ao banco de dados
-- repositories: implementação do repositório da camada anterior
+- datasource: data access using JpaRepository
+- models: data models representing database tables
+- repositories: implementation of repository from application layer
 
 
 ### Presentation
 
-- controllers: endpoints que recebem as requisições do usuário
-- models: modelo de dados relacionado a apresentação dos dados para o usuário
+- controllers: API endpoints. They handle HTTP requests
+- models: data models representing how data should be returned
