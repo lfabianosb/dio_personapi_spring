@@ -12,7 +12,6 @@ O arquitetura do sistema apresenta as seguintes camadas:
 
 ### Application
 
-- contracts: interfaces para uso das camadas externas
 - exceptions: erros relacionados à aplicação
 - repositories: interface para o repositório de dados
 - services: implementação dos casos de uso. Cada caso de uso representa uma regra de negócio do sistema
@@ -29,4 +28,3 @@ O arquitetura do sistema apresenta as seguintes camadas:
 
 - controllers: endpoints que recebem as requisições do usuário
 - models: modelo de dados relacionado a apresentação dos dados para o usuário
-- presenters: sabe como formatar os dados para sua apresentação
