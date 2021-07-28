@@ -2,26 +2,31 @@ package com.example.personapi.application.services.person.create.models.out;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.example.personapi.domain.entities.Person;
-import com.example.personapi.domain.entities.Phone;
 
-import lombok.ToString;
+import lombok.Builder;
+import lombok.Getter;
 
-@ToString
-public class SavePersonResponse extends Person {
-
-  public SavePersonResponse(Long id, String firstName, String lastName, String cpf, LocalDate birthDate, List<Phone> phones) {
-    super(id, firstName, lastName, cpf, birthDate, phones);
-  }
+@Getter
+@Builder
+public class SavePersonResponse {
+  private final Long id;
+  private final String firstName;
+  private final String lastName;
+  private final String cpf;
+  private final LocalDate birthDate;
+  private final List<SavePhoneResponse> phones;
 
   public static SavePersonResponse fromDomain(Person person) {
-    return new SavePersonResponse(
-                person.getId(),
-                person.getFirstName(),
-                person.getLastName(),
-                person.getCpf(),
-                person.getBirthDate(),
-                person.getPhones());
+    return SavePersonResponse.builder()
+            .id(person.getId())
+            .firstName(person.getFirstName())
+            .lastName( person.getLastName())
+            .cpf(person.getCpf())
+            .birthDate(person.getBirthDate())
+            .phones(person.getPhones().stream().map(phone -> SavePhoneResponse.fromDomain(phone)).collect(Collectors.toList()))
+            .build();
   }
 }

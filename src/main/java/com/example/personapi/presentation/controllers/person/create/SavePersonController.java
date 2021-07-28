@@ -3,8 +3,8 @@ package com.example.personapi.presentation.controllers.person.create;
 import com.example.personapi.application.services.person.create.contracts.SavePersonUseCase;
 import com.example.personapi.application.services.person.create.models.out.SavePersonResponse;
 import com.example.personapi.presentation.controllers.person.PersonControllerBase;
-import com.example.personapi.presentation.controllers.person.create.in.SavePersonInput;
-import com.example.personapi.presentation.models.PersonViewModel;
+import com.example.personapi.presentation.controllers.person.create.models.in.SavePersonInput;
+import com.example.personapi.presentation.controllers.person.create.models.out.SavePersonViewModel;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,8 +22,8 @@ public class SavePersonController extends PersonControllerBase {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public PersonViewModel create(@RequestBody SavePersonInput personInput) {
+  public SavePersonViewModel create(@RequestBody SavePersonInput personInput) {
     final SavePersonResponse useCaseResponse = useCase.execute(personInput.toRequestModel());
-    return PersonViewModel.fromDomain(useCaseResponse);
+    return SavePersonViewModel.fromResponse(useCaseResponse);
   }
 }

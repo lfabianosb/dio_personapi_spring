@@ -1,4 +1,4 @@
-package com.example.personapi.presentation.controllers.person.create.in;
+package com.example.personapi.presentation.controllers.person.create.models.in;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 
 import com.example.personapi.application.services.person.create.models.in.SavePersonRequest;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Data
+@Getter
+@AllArgsConstructor
 public class SavePersonInput {
   private final String firstName;
   private final String lastName;
