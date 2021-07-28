@@ -4,9 +4,9 @@ import com.example.personapi.domain.entities.Phone;
 import com.example.personapi.domain.entities.PhoneType;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Builder
 public class SavePhoneRequest {
   private final String type;

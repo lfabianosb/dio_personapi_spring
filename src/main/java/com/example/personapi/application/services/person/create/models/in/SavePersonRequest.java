@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import com.example.personapi.domain.entities.Person;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Builder
 public class SavePersonRequest {
   private final String firstName;

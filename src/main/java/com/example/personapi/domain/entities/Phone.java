@@ -1,10 +1,12 @@
 package com.example.personapi.domain.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Builder
+@AllArgsConstructor
 public class Phone {
   private final Long id;
   private final PhoneType type;
