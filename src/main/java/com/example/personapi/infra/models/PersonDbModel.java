@@ -21,7 +21,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Builder
+@Builder(setterPrefix = "with")
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonDbModel {
@@ -44,25 +44,40 @@ public class PersonDbModel {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<PhoneDbModel> phones = new ArrayList<>();
 
+    private static Person toDomain(PersonDbModel personDbModel) {
+      return Person.builder()
+              .withId(personDbModel.id)
+              .withFirstName(personDbModel.firstName)
+              .withLastName(personDbModel.lastName)
+              .withCpf(personDbModel.cpf)
+              .withBirthDate(personDbModel.birthDate)
+              .withPhones(personDbModel.phones.stream().map(phone -> phone.toDomain()).collect(Collectors.toList()))
+              .build();
+    }
+
     public Person toDomain() {
       return Person.builder()
-              .id(this.id)
-              .firstName(this.firstName)
-              .lastName(this.lastName)
-              .cpf(this.cpf)
-              .birthDate(this.birthDate)
-              .phones(phones.stream().map(phone -> phone.toDomain()).collect(Collectors.toList()))
+              .withId(this.id)
+              .withFirstName(this.firstName)
+              .withLastName(this.lastName)
+              .withCpf(this.cpf)
+              .withBirthDate(this.birthDate)
+              .withPhones(this.phones.stream().map(phone -> phone.toDomain()).collect(Collectors.toList()))
               .build();
+    }
+
+    public static List<Person> toDomain(List<PersonDbModel> personDbModel) {
+      return personDbModel.stream().map(person -> PersonDbModel.toDomain(person)).collect(Collectors.toList());
     }
 
     public static PersonDbModel fromDomain(Person person) {
       return PersonDbModel.builder()
-              .id(person.getId())
-              .firstName(person.getFirstName())
-              .lastName(person.getLastName())
-              .cpf(person.getCpf())
-              .birthDate(person.getBirthDate())
-              .phones(person.getPhones().stream().map(phone -> PhoneDbModel.fromDomain(phone)).collect(Collectors.toList()))
+              .withId(person.getId())
+              .withFirstName(person.getFirstName())
+              .withLastName(person.getLastName())
+              .withCpf(person.getCpf())
+              .withBirthDate(person.getBirthDate())
+              .withPhones(person.getPhones().stream().map(phone -> PhoneDbModel.fromDomain(phone)).collect(Collectors.toList()))
               .build();
     }
 }

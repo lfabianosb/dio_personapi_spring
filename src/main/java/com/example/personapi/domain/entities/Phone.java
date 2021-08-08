@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
+@Builder(setterPrefix = "with")
 @AllArgsConstructor
 public class Phone {
   private final Long id;

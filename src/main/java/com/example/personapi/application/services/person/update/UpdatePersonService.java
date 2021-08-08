@@ -1,10 +1,9 @@
 package com.example.personapi.application.services.person.update;
 
-import com.example.personapi.application.exceptions.PersonNotFoundException;
 import com.example.personapi.application.repositories.PersonRepository;
+import com.example.personapi.application.services.person.update.contracts.UpdatePersonPresenter;
 import com.example.personapi.application.services.person.update.contracts.UpdatePersonUseCase;
 import com.example.personapi.application.services.person.update.models.in.UpdatePersonRequest;
-import com.example.personapi.application.services.person.update.models.out.UpdatePersonResponse;
 import com.example.personapi.domain.entities.Person;
 
 import org.springframework.stereotype.Service;
@@ -19,11 +18,12 @@ public class UpdatePersonService implements UpdatePersonUseCase {
   }
 
   @Override
-  public UpdatePersonResponse execute(UpdatePersonRequest request) {
-    if (!repository.findById(request.getId()).isPresent()) {
-      throw new PersonNotFoundException();
+  public void execute(Long id, UpdatePersonRequest request, UpdatePersonPresenter presenter) {
+    if (!repository.findById(id).isPresent()) {
+      presenter.setError("Person #" + id + " not found");
+    } else {
+      Person person = repository.update(request.toDomain(id));
+      presenter.setResponse(person);
     }
-    Person person = repository.update(request.toDomain());
-    return UpdatePersonResponse.fromDomain(person);
   }
 }

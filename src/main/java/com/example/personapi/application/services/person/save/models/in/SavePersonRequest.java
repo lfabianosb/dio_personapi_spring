@@ -1,7 +1,8 @@
-package com.example.personapi.application.services.person.update.models.in;
+package com.example.personapi.application.services.person.save.models.in;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import com.example.personapi.domain.entities.Person;
@@ -11,16 +12,16 @@ import lombok.Getter;
 
 @Getter
 @Builder(setterPrefix = "with")
-public class UpdatePersonRequest {
+public class SavePersonRequest {
   private final String firstName;
   private final String lastName;
   private final String cpf;
   private final String birthDate;
-  private final List<UpdatePhoneRequest> phones;
+  @Builder.Default
+  private final List<SavePhoneRequest> phones = new ArrayList<>();
 
-  public Person toDomain(Long id) {
+  public Person toDomain() {
     return Person.builder()
-            .withId(id)
             .withFirstName(this.firstName)
             .withLastName(this.lastName)
             .withCpf(this.cpf)

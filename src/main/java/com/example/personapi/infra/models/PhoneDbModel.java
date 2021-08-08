@@ -16,7 +16,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Builder
+@Builder(setterPrefix = "with")
 @NoArgsConstructor
 @AllArgsConstructor
 public class PhoneDbModel {
@@ -34,17 +34,17 @@ public class PhoneDbModel {
 
     public Phone toDomain() {
       return Phone.builder()
-              .id(this.id)
-              .type(this.type)
-              .number(this.number)
+              .withId(this.id)
+              .withType(this.type)
+              .withNumber(this.number)
               .build();
     }
 
     public static PhoneDbModel fromDomain(Phone phone) {
       return PhoneDbModel.builder()
-              .id(phone.getId())
-              .type(phone.getType())
-              .number(phone.getNumber())
+              .withId(phone.getId())
+              .withType(phone.getType())
+              .withNumber(phone.getNumber())
               .build();
     }
 }

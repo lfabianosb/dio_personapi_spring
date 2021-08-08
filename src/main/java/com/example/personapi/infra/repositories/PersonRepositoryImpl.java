@@ -2,7 +2,6 @@ package com.example.personapi.infra.repositories;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import com.example.personapi.application.repositories.PersonRepository;
 import com.example.personapi.domain.entities.Person;
@@ -44,7 +43,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
   @Override
   public Person update(Person person) {
-    PersonDbModel personToUpdate = PersonDbModel.fromDomain(person);
+    PersonDbModel personToUpdate = PersonDbModel.fromDomain(person);    
     PersonDbModel personUpdated = personDataSource.save(personToUpdate);
     return personUpdated.toDomain();
   }
@@ -57,6 +56,6 @@ public class PersonRepositoryImpl implements PersonRepository {
   @Override
   public List<Person> findAll() {
     List<PersonDbModel> result = personDataSource.findAll();
-    return result.stream().map(model -> model.toDomain()).collect(Collectors.toList());
+    return PersonDbModel.toDomain(result);
   }
 }
