@@ -26,5 +26,5 @@ The system was divided into following layers:
 
 ### Presentation
 
-- controllers: API endpoints. They handle HTTP requests
+- controllers: API endpoints. They handle HTTP requests. Presenters and Controllers are the same class
 - models: data models representing how data should be returned
